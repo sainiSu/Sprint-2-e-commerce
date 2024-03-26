@@ -78,26 +78,131 @@ var total = 0;
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
+
+    //if nothing added to tje cart:
+    if (cart.length === 0) {
+        products.forEach((product) => {
+            if (product.id === id) {
+                product.quantity = 1;
+                cart.push(product);
+            }
+        });
+    } else {
+        cart.forEach((item) => {
+            if (item.id === id) {
+                item.quantity = item.quantity + 1;
+            } else {
+                products.forEach((product) => {
+                    if (product.id === id) {
+                        product.quantity = 1;
+                        cart.push(product);
+                    }
+                });
+            }
+        });
+    };
+    //show in cart:
+    showCart();
+}
+function showCart() {
+    let count = document.getElementById("count_product");
+    let countProduct = 0;
+    cart.forEach((products) => countProduct += products.quantity);
+    count.innerHTML = countProduct;
+    console.log("Products in the cart:", cart);
 }
 
 // Exercise 2
 function cleanCart() {
-
+    cart = [];
+    removeItems();
 }
+/* Remove the items form the cart:
+function removeItems() {
+    let cartList = document.getElementById("cart_list");
+    while (cartList.firstChild) {
+        cartList.removeChild(cartList.firstChild);
+    }
+    // Clean the cart and set total at 0:
+    let total = document.getElementById("total");
+    total.innerHTML = 0;
+
+    //update the cart:
+    showCart();
+}*/
+function removeItem(id) {
+    // Find the index of the item with the given id in the cart
+    const index = cart.findIndex(item => item.id === id);
+
+    // If the item is found in the cart
+    if (index !== -1) {
+        // Remove the item from the cart array
+        cart.splice(index, 1);
+
+        // Remove the corresponding item element from the cart list in the DOM
+        let itemElement = document.getElementById("item_" + id);
+        itemElement.parentNode.removeChild(itemElement);
+
+        // Update the cart display
+        showCart();
+    } else {
+        console.log("Item not found in the cart!");
+    }
+}
+
 
 // Exercise 3
 function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
+    // Calculate total price of the cart using the "cartList" array:
+
+    //To calculate the whole total let sapply the discounts :
+    applyPromotionsCart();
+    let totalPrice = 0;
+    cart.forEach(product => {
+        product.subtotal = (product.price * product.quantity);
+        totalPrice += product.subtotalWithDiscount > 0 ? product.subtotalWithDiscount : product.subtotal;
+    })
+    return totalPrice;
 }
 
 // Exercise 4
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
+    //for the appliction of promtion carts we have 2 product which have offers like on cooking oil if we purchase will get 20% dicount and on instant cupcake mixtures will get 30% discount.
+
+    cart.forEach((product) => {
+        if (product.offer) {
+            if (product.quantity >= product.offer.number) {
+                product.subtotalWithDiscount = ((product.price - (product.price * product.offer.percent / 100)) * product.quantity);
+            } else {
+                product.subtotalWithDiscount = 0;
+            }
+        }
+    })
+    return cart;
 }
 
 // Exercise 5
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+ 
+    //To print the cart with each item added we create a new row with the reference of table
+    cart.forEach((product) => {
+        let row = document.createElement("tr");
+        let tbody = document.getElementById("cart_list");
+        //now collecting the ata of the product like price numbere abd quantity
+        row.innerHTML = `
+        <th scope="row">${product.name}</th>        
+        <td>${product.price}</td>
+        <td>${product.quantity}</td>
+        <td><buttom class="btn btn-primary btn-3" onclick="remove(${product.id})">Remove</buttom></td>
+        <td>${product.subtotalWithDiscount ? product.subtotalWithDiscount.toFixed(2) : product.subtotal.toFixed(2)}</td>`;
+
+        tbody.appendChild(row);
+    })
+    let total = document.getElementById("total");
+    total.innerHTML = calculateTotal().toFixed(2) == null ? 0 : calculateTotal().toFixed(2);
+
 }
 
 
@@ -106,8 +211,25 @@ function printCart() {
 // Exercise 7
 function removeFromCart(id) {
 
+    //To remove the items from the cart firdt of all check the product exists in the cart with find array method then apply condition 
+
+    let Item = cart.find(Item => Item.id == id);
+    if (Item.quantity > 1) {
+        Item.quantity = Item.quantity - 1;
+    } else {
+        if (Item.quantity === 1) {
+            cart = cart.filter(item => item.id !== id);
+        }
+    };
+    //Remove all the items from the cartt:
+    removeItems();
+    //calling open_modal:
+    open_modal();
+    //update the cart:
+    showCart();
 }
 
 function open_modal() {
+    calculateTotal();
     printCart();
 }
