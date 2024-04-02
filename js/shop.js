@@ -117,7 +117,7 @@ function cleanCart() {
     cart = [];
     removeItems();
 }
-/* Remove the items form the cart:
+ //Remove the items form the cart:
 function removeItems() {
     let cartList = document.getElementById("cart_list");
     while (cartList.firstChild) {
@@ -129,27 +129,7 @@ function removeItems() {
 
     //update the cart:
     showCart();
-}*/
-function removeItem(id) {
-    // Find the index of the item with the given id in the cart
-    const index = cart.findIndex(item => item.id === id);
-
-    // If the item is found in the cart
-    if (index !== -1) {
-        // Remove the item from the cart array
-        cart.splice(index, 1);
-
-        // Remove the corresponding item element from the cart list in the DOM
-        let itemElement = document.getElementById("item_" + id);
-        itemElement.parentNode.removeChild(itemElement);
-
-        // Update the cart display
-        showCart();
-    } else {
-        console.log("Item not found in the cart!");
-    }
 }
-
 
 // Exercise 3
 function calculateTotal() {
