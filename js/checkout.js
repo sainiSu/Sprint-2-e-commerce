@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener to the form submission
+    document.querySelector(".form").addEventListener("submit", function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();  
+        validate();
+    });
+});
 // Exercise 6
 function validate() {
 	var error = 0;
