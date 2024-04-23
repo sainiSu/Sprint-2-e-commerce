@@ -78,6 +78,7 @@
 }
 
 body {
+  background-image: url(../images/image.jpg);
   margin: 0;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
