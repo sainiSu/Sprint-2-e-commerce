@@ -79,28 +79,16 @@ function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
 
-    //if nothing added to tje cart:
-    if (cart.length === 0) {
-        products.forEach((product) => {
-            if (product.id === id) {
-                product.quantity = 1;
-                cart.push(product);
-            }
-        });
-    } else {
-        cart.forEach((item) => {
-            if (item.id === id) {
-                item.quantity = item.quantity + 1;
-            } else {
-                products.forEach((product) => {
-                    if (product.id === id) {
-                        product.quantity = 1;
-                        cart.push(product);
-                    }
-                });
-            }
-        });
-    };
+    const productIndex = products.findIndex((product) => product.id === id)
+    const cartIndex = cart.findIndex((cartProduct) => cartProduct.id === id )
+    if(cartIndex != -1){
+        cart[cartIndex].quantity += 1
+        cart[cartIndex].subtotal = cart[cartIndex].price * cart[cartIndex].quantity;
+    } else{
+        cart.push(products[productIndex]);
+        cart[cart.length -1].quantity = 1;
+        cart[cart.length -1].subtotal = cart[cart.length - 1].price;
+    }
     //show in cart:
     showCart();
 }
@@ -201,7 +189,7 @@ function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
         }
     };
-    //Remove all the items from the cartt:
+    //Remove all the items from the cart:
     removeItems();
     //calling open_modal:
     open_modal();
