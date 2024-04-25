@@ -163,7 +163,7 @@ function printCart() {
         <th scope="row">${product.name}</th>        
         <td>${product.price}</td>
         <td>${product.quantity}</td>
-        <td><buttom class="btn btn-primary btn-3" onclick="remove(${product.id})">Remove</buttom></td>
+        <td><buttom class="btn btn-primary btn-3" onclick="removeFromCart(${product.id})">Remove</buttom></td>
         <td>${product.subtotalWithDiscount ? product.subtotalWithDiscount.toFixed(2) : product.subtotal.toFixed(2)}</td>`;
 
         tbody.appendChild(row);
@@ -182,6 +182,7 @@ function removeFromCart(id) {
     //To remove the items from the cart firdt of all check the product exists in the cart with find array method then apply condition 
 
     let Item = cart.find(Item => Item.id == id);
+    console.log(Item);
     if (Item.quantity > 1) {
         Item.quantity = Item.quantity - 1;
     } else {
