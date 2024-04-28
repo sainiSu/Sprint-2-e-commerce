@@ -1,0 +1,76 @@
+body {
+    background: linear-gradient(180deg, rgb(188, 206, 197) 13%, rgb(205, 194, 194) 44%, rgb(207, 223, 210) 100%);
+}
+
+header h1{
+    
+    font-family: "Marck Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#grocery .col-12 .img,
+#beauty .col-12 .img,
+#clothes .col-12 .img{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+}
+
+/************************ SM ≥576px*/
+@media (min-width: 576px) { 
+ /* body{
+    background:pink;
+ } */
+ 
+}
+
+
+/************************ MD ≥768px*/
+@media (min-width: 768px) { 
+    /* body{
+       background:yellow;
+    } */
+    header{
+        background-image: url('../images/images.jpeg');
+        background-size: 200px 200px;
+        background-color: rgba(0, 0, 0, 0.3);
+        background-repeat: no-repeat;
+        background-position: 15px bottom;
+    }
+    
+}
+
+
+/************************ LG ≥992px*/
+@media (min-width: 992px) { 
+    /* body{
+       background:green;
+    } */
+    header{
+        background-position: 50px bottom;
+    }
+}
+
+/************************ XL ≥1200px*/
+@media (min-width: 1200px) {
+    /* body{
+        background:orange;
+    } */
+    header{
+        background-position: 80px bottom;
+    }
+    section .card-header {
+        min-height: 250px;
+    }
+}
+
+/************************ XXL ≥1400px*/
+@media (min-width: 1400px) {
+ 
+}
+section .card-body h5{
+   text-transform: uppercase;
+   min-height: 50px;
+}

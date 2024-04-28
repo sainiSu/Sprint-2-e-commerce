@@ -79,30 +79,32 @@ function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
 
-    const productIndex = products.findIndex((product) => product.id === id)
-    const cartIndex = cart.findIndex((cartProduct) => cartProduct.id === id )
-    if(cartIndex != -1){
-        cart[cartIndex].quantity += 1
-        cart[cartIndex].subtotal = cart[cartIndex].price * cart[cartIndex].quantity;
-    } else{
-        cart.push(products[productIndex]);
-        cart[cart.length -1].quantity = 1;
-        cart[cart.length -1].subtotal = cart[cart.length - 1].price;
+    const selelectedProduct = products.filter(products => products.id)[0];
+    let find = cart.find(element => element.id === selelectedProduct.id);
+
+    if(find != undefined){
+        find.quantity++;
+    }else{
+        let element = {...selelectedProduct};
+        element["quantity"] = 1;
+        cart.push(element);
     }
-    //show in cart:
     showCart();
 }
-function showCart() {
-    let count = document.getElementById("count_product");
-    let countProduct = 0;
-    cart.forEach((products) => countProduct += products.quantity);
-    count.innerHTML = countProduct;
-    console.log("Products in the cart:", cart);
-}
+ function showCart(){
+    let count = 0;
+    for(const product of cart){
+        count += product.quantity;
+    }
+    countProduct = document.getElementById("count_product");
+    countProduct.innerHTML = count;
+ }
 
 // Exercise 2
 function cleanCart() {
     cart = [];
+    printCart();
+    showCart();
     removeItems();
 }
  //Remove the items form the cart:
