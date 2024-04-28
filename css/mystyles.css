@@ -18,20 +18,14 @@ header h1{
     background-position: center center;
 }
 
-/************************ SM ≥576px*/
+/*SM ≥576px*/
 @media (min-width: 576px) { 
- /* body{
-    background:pink;
- } */
- 
 }
 
 
-/************************ MD ≥768px*/
+/*MD ≥768px*/
 @media (min-width: 768px) { 
-    /* body{
-       background:yellow;
-    } */
+    
     header{
         background-image: url('../images/images.jpeg');
         background-size: 200px 200px;
@@ -43,21 +37,17 @@ header h1{
 }
 
 
-/************************ LG ≥992px*/
+/* LG ≥992px*/
 @media (min-width: 992px) { 
-    /* body{
-       background:green;
-    } */
+   
     header{
         background-position: 50px bottom;
     }
 }
 
-/************************ XL ≥1200px*/
+/* XL ≥1200px*/
 @media (min-width: 1200px) {
-    /* body{
-        background:orange;
-    } */
+    
     header{
         background-position: 80px bottom;
     }
@@ -66,7 +56,7 @@ header h1{
     }
 }
 
-/************************ XXL ≥1400px*/
+/* XXL ≥1400px*/
 @media (min-width: 1400px) {
  
 }
